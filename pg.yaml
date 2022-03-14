@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "qwerty1234q"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/var/lib/postgresql/data 
+    networks:
+      - network
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "hugo@almeida.com"
+      PGADMIN_DEFAULT_PASSWORD: "qwerty1234q"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
+    networks:
+      - network
+
+networks: 
+  network:
+    driver: bridge
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
